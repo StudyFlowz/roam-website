@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roam | Roads worth driving</title>
+<meta name="description" content="Navigation apps answer how do I get there. Roam answers where should I go. Roads worth driving, graded by twist, written down by the people who drove them.">
+<meta name="theme-color" content="#0A0B0E">
+<meta property="og:title" content="Roam | Roads worth driving">
+<meta property="og:description" content="Roads your GPS never suggested. Graded by twist, timed by the hour, posted by the people who drove them.">
+<meta property="og:image" content="assets/icon.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,700;0,800;1,900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Palette from roam-frontend/src/theme.ts (DARK). The app is dark only; so is this. */
+:root{
+  --ground:#0A0B0E; --panel:#13151B; --raised:#1B1E26; --rule:#232834; --rail:#333B4D;
+  --data:#00E5FF; --action:#FF9900; --alert:#FF3344;
+  --text:#E2E8F0; --dim:#7D8A99; --faint:#475569;
+  --display:'Chivo',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1180px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ground);color:var(--text);font-family:var(--display);line-height:1.5;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--action);color:var(--ground)}
+
+/* CRT scanlines over everything, like the posts */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+.label b{color:var(--data);font-weight:700}
+.display{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;line-height:.92;letter-spacing:-.01em}
+.amber{color:var(--action)} .cyan{color:var(--data)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(10,11,14,.72);border-bottom:1px solid var(--rule)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:900;font-style:italic;font-size:24px;letter-spacing:.08em}
+.brand i{width:12px;height:12px;background:var(--action);box-shadow:0 0 14px var(--action),0 0 30px rgba(255,153,0,.5)}
+.nav-r{display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px;color:var(--dim)}
+.nav-r a:hover{color:var(--text)}
+.live{display:flex;align-items:center;gap:8px;color:var(--data);letter-spacing:.2em}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--data);box-shadow:0 0 10px var(--data);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (max-width:640px){.nav-hide{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden;padding:72px 0 96px}
+.hero::before{content:"";position:absolute;inset:-20% auto auto -15%;width:75vw;height:75vw;max-width:1000px;max-height:1000px;
+  background:radial-gradient(closest-side,rgba(255,153,0,.22),transparent 70%);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-20%;bottom:-30%;width:70vw;height:70vw;max-width:900px;max-height:900px;
+  background:radial-gradient(closest-side,rgba(0,229,255,.12),transparent 70%);pointer-events:none}
+.brackets{position:absolute;inset:24px;pointer-events:none;z-index:1}
+.brackets i{position:absolute;width:44px;height:44px;border:2px solid var(--rail)}
+.brackets i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.brackets i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.brackets i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.brackets i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;width:100%}
+.hero h1{font-size:clamp(52px,9.2vw,132px);margin:22px 0 28px}
+.hero h1 .amber{text-shadow:0 0 40px rgba(255,153,0,.35)}
+.lede{font-size:clamp(17px,1.6vw,21px);color:var(--dim);max-width:34ch}
+.lede strong{color:var(--text);font-weight:700}
+.ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+
+.store{display:flex;align-items:center;gap:14px;padding:13px 22px 13px 18px;border-radius:4px;min-width:210px;
+  font-family:var(--mono);transition:transform .2s,box-shadow .2s,background .2s}
+.store svg{width:26px;height:26px;flex:none}
+.store small{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
+.store span{display:block;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.02em;line-height:1.15}
+.store.play{background:var(--action);color:var(--ground);box-shadow:0 0 0 1px var(--action),0 10px 40px -10px rgba(255,153,0,.7)}
+.store.play:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--action),0 16px 50px -10px rgba(255,153,0,.9)}
+.store.ios{border:1px dashed var(--rail);color:var(--faint);cursor:not-allowed;position:relative}
+.store.ios em{position:absolute;top:-10px;right:10px;background:var(--ground);border:1px solid var(--data);color:var(--data);
+  font-style:normal;font-size:9px;letter-spacing:.2em;padding:2px 7px}
+
+/* the mark and a road drawing itself behind it */
+.mark{position:relative;aspect-ratio:1;max-width:520px;width:100%;justify-self:center}
+.mark svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.road{fill:none;stroke:var(--data);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px rgba(0,229,255,.8));stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3.2s cubic-bezier(.6,.1,.3,1) .4s forwards}
+.road.ghost{stroke:var(--rule);filter:none;stroke-width:1.5;animation:none;stroke-dashoffset:0;stroke-dasharray:4 8}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mark img{position:absolute;inset:14%;width:72%;height:72%;mix-blend-mode:lighten;
+  filter:drop-shadow(0 0 22px rgba(255,153,0,.45));animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(-1.5deg)}}
+.pin{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--dim);
+  background:rgba(19,21,27,.85);border:1px solid var(--rule);padding:6px 10px;border-radius:2px;white-space:nowrap;
+  opacity:0;animation:pop .5s ease forwards}
+.pin b{color:var(--data)}
+.pin.a{top:6%;left:-4%;animation-delay:1.6s}
+.pin.b{bottom:10%;right:-2%;animation-delay:2.6s}
+.pin.b b{color:var(--action)}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .mark{max-width:340px;order:-1;margin-bottom:-10px}
+  .pin.a{left:0}.pin.b{right:0}
+}
+
+/* ---------- ticker ---------- */
+.ticker{border-block:1px solid var(--rule);background:var(--panel);overflow:hidden;white-space:nowrap;position:relative}
+.ticker::before{content:"> DISPATCH";position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;
+  padding:0 18px;background:var(--action);color:var(--ground);font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.2em}
+.track{display:inline-flex;gap:48px;padding:16px 0 16px 48px;animation:roll 48s linear infinite;
+  font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--dim)}
+.track span b{color:var(--data);font-weight:700;margin-right:10px}
+.track span em{font-style:normal;color:var(--action)}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:clamp(80px,11vw,140px) 0;position:relative}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px}
+.head h2{font-size:clamp(40px,6vw,80px)}
+.head p{color:var(--dim);max-width:38ch;font-size:17px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.card{background:var(--ground);padding:34px 30px 38px;position:relative;transition:background .25s}
+.card:hover{background:var(--panel)}
+.card::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--hue,var(--data));transition:width .45s ease}
+.card:hover::before{width:100%}
+.card .idx{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--hue,var(--data))}
+.card h3{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:26px;margin:18px 0 12px;letter-spacing:.01em}
+.card p{color:var(--dim);font-size:15.5px}
+.card .ro{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.1em}
+.card .ro b{color:var(--text)}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+
+/* twist grade */
+.twist{background:linear-gradient(180deg,transparent,rgba(0,229,255,.04) 40%,transparent)}
+.twist .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.twist h2{font-size:clamp(56px,8.5vw,120px);margin:18px 0 26px}
+.twist h2 .amber{text-shadow:0 0 50px rgba(255,153,0,.4)}
+.twist .copy p{color:var(--dim);font-size:19px;max-width:36ch}
+.twist .copy p strong{color:var(--text)}
+.meter{margin-top:40px;max-width:520px}
+.segs{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.segs i{height:30px;background:var(--raised);transform-origin:bottom;transition:background .3s}
+.meter.on .segs i.lit{background:var(--c);box-shadow:0 0 14px -2px var(--c);animation:seg .4s backwards}
+@keyframes seg{from{transform:scaleY(.2);opacity:0}}
+.scale{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--faint)}
+.phone{max-width:380px;justify-self:center;filter:drop-shadow(0 40px 60px rgba(0,0,0,.7)) drop-shadow(0 0 80px rgba(0,229,255,.12));
+  transform:rotate(3deg);transition:transform .6s}
+.phone:hover{transform:rotate(0) scale(1.02)}
+@media (max-width:900px){.twist .wrap{grid-template-columns:1fr}.phone{max-width:300px;transform:none}}
+
+/* when to leave */
+.when .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+.when h2{font-size:clamp(40px,5.4vw,72px);margin:18px 0 22px}
+.when .copy p{color:var(--dim);font-size:17px;max-width:40ch}
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:28px 26px 20px}
+.chart-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--dim);margin-bottom:26px}
+.chart-top b{color:var(--data)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:220px}
+.bars i{flex:1;height:var(--h);background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 25%,transparent));border-radius:2px 2px 0 0;
+  transform-origin:bottom;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * 45ms)}
+.chart.on .bars i{transform:scaleY(1)}
+.bars i.q{box-shadow:0 0 18px -3px var(--c)}
+.hours{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:13px}
+.legend span{color:var(--dim)} .legend b{font-size:22px;display:block;font-family:var(--mono)}
+@media (max-width:900px){.when .wrap{grid-template-columns:1fr}}
+
+/* measured, not assumed */
+.fail{border-top:1px solid var(--rule)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tile{border:1px solid var(--rule);background:var(--panel);padding:26px 22px;border-radius:4px;display:flex;flex-direction:column;gap:14px}
+.tile .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.vs{display:flex;align-items:baseline;gap:12px;font-family:var(--mono);font-weight:700}
+.vs .bad{font-size:22px;color:var(--alert);text-decoration:line-through;text-decoration-thickness:2px;opacity:.85}
+.vs .good{font-size:40px;color:var(--data);text-shadow:0 0 24px rgba(0,229,255,.4)}
+.tile p{color:var(--dim);font-size:14.5px;margin-top:auto}
+.tile p strong{color:var(--text);font-weight:700}
+@media (max-width:1000px){.tiles{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.tiles{grid-template-columns:1fr}}
+
+/* stats strip */
+.stats{padding:0;border-block:1px solid var(--rule);background:var(--panel)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:44px 12px;text-align:center;border-left:1px solid var(--rule)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-family:var(--display);font-weight:900;font-style:italic;font-size:clamp(44px,6vw,78px);line-height:1}
+.stat span{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--dim)}
+@media (max-width:700px){.stats .wrap{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+/* tags */
+.tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:52px}
+.tag{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--c);color:var(--c);
+  border-radius:2px;background:color-mix(in srgb,var(--c) 8%,transparent);transition:background .2s,color .2s}
+.tag:hover{background:var(--c);color:var(--ground)}
+
+/* final CTA */
+.final{text-align:center;overflow:hidden}
+.final::before{content:"";position:absolute;left:50%;top:50%;width:900px;height:900px;transform:translate(-50%,-50%);
+  background:radial-gradient(closest-side,rgba(255,153,0,.16),transparent 70%);pointer-events:none}
+.final .wrap{position:relative}
+.final img{width:120px;margin:0 auto 34px;mix-blend-mode:lighten;filter:drop-shadow(0 0 24px rgba(255,153,0,.5))}
+.final h2{font-size:clamp(40px,6.4vw,92px);max-width:16ch;margin:0 auto}
+.final p{color:var(--dim);font-size:18px;margin:26px auto 0;max-width:42ch}
+.final .ctas{justify-content:center}
+
+footer{border-top:1px solid var(--rule);padding:34px 0 calc(34px + env(safe-area-inset-bottom))}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.12em}
+footer a:hover{color:var(--data)}
+
+/* scroll reveal; --d staggers siblings (set in the script) */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
+.rv.on{opacity:1;transform:none}
+.card.rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),background .25s;transition-delay:var(--d,0ms)}
+.tag.rv{transform:translateY(14px) scale(.9);transition:opacity .6s,transform .6s cubic-bezier(.2,.8,.2,1),background .2s,color .2s;transition-delay:var(--d,0ms)}
+.tag.rv.on{transform:none}
+
+/* a radar line sweeping down the hero */
+.hero .sweep{position:absolute;left:0;right:0;top:0;height:120px;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(0,229,255,.06) 80%,rgba(0,229,255,.35) 99%,transparent);
+  animation:sweep 6s linear infinite}
+@keyframes sweep{from{transform:translateY(-120px)}to{transform:translateY(100svh)}}
+
+/* failed numbers get struck through as they arrive, the good one flickers on like a VFD */
+.vs .bad{text-decoration:none;position:relative}
+.vs .bad::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:var(--alert);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s ease calc(var(--d,0ms) + .5s)}
+.tile.on .bad::after{transform:scaleX(1)}
+.tile.on .good{animation:vfd 1s steps(1) calc(var(--d,0ms) + .9s) backwards}
+@keyframes vfd{0%{opacity:0}20%{opacity:1}30%{opacity:.2}45%{opacity:1}55%{opacity:.4}70%,100%{opacity:1}}
+
+/* the idx chip blinks a cursor on hover */
+.card .idx::after{content:"_";opacity:0}
+.card:hover .idx::after{animation:blink 1s steps(1) infinite}
+
+.phone.on{animation:float 8s ease-in-out 1s infinite}
+.final .store.play{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 1px var(--action),0 0 0 8px rgba(255,153,0,.12),0 10px 60px -6px rgba(255,153,0,.9)}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .road{stroke-dashoffset:0}.pin{opacity:1}.rv{opacity:1;transform:none}
+  .bars i{transform:none}
+  .hero .sweep{display:none}.vs .bad::after{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Roam home"><i></i>ROAM</a>
+    <div class="nav-r">
+      <span class="live nav-hide">LIVE · ISB</span>
+      <a href="https://instagram.com/roam_index" rel="noopener">@roam_index</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="sweep" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="label rv">Islamabad · <b>21 roads</b> · graded by twist</p>
+      <h1 class="display rv">Roads your GPS <span class="amber">never</span> suggested.</h1>
+      <p class="lede rv">Navigation apps answer <em>how do I get there?</em> <strong>Roam answers where should I go.</strong> Roads worth driving, posted by the people who drove them.</p>
+      <div class="ctas rv">
+        <!-- TODO: swap href for the Play Store listing URL once it is live -->
+        <a class="store play" href="#" aria-label="Get Roam on Google Play">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1Zm11.3 11.3 2.4 2.4-11 6.3 8.6-8.7Zm3.6-4.2 2.8 1.6c.8.5.8 1.6 0 2.1l-2.8 1.6-2.6-2.6 2.6-2.7ZM6.3 2.2l11 6.3-2.4 2.4-8.6-8.7Z"/></svg>
+          <div><small>Get it on</small><span>Google Play</span></div>
+        </a>
+        <div class="store ios" aria-label="App Store, coming soon">
+          <em>SOON</em>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5Z"/></svg>
+          <div><small>Coming soon to</small><span>App Store</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <path class="road ghost" d="M30 360 C 80 330, 60 290, 110 280 S 170 300, 160 250 S 100 210, 140 180 S 230 200, 220 150 S 160 110, 210 80 S 300 100, 290 60 S 330 20, 380 30"/>
+        <path class="road" pathLength="1" d="M30 360 C 80 330, 60 290, 110 280 S 170 300, 160 250 S 100 210, 140 180 S 230 200, 220 150 S 160 110, 210 80 S 300 100, 290 60 S 330 20, 380 30"/>
+      </svg>
+      <img src="assets/icon.png" alt="">
+      <div class="pin a">[ISL-02] <b>PIR SOHAWA</b></div>
+      <div class="pin b">TWIST <b>7.8</b>/10</div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span><b>ISL-01</b>MARGALLA NIGHT LOOP · DAMAN-E-KOH <em>▲</em></span>
+    <span><b>ISL-02</b>PIR SOHAWA HILLCLIMB · TWIST <em>7.8</em></span>
+    <span><b>MURREE</b>ISLAMABAD → MURREE · LEAVE 04:00</span>
+    <span><b>ISB</b>SIMLY DAM LAKESIDE · LAST FUEL BHARAKAHU</span>
+    <span><b>KHANPUR</b>KHANPUR DAM RUN · VIEWPOINT <em>▲</em></span>
+    <span><b>MURREE</b>LEHTRAR ROAD → KOTLI SATTIAN</span>
+    <span><b>MURREE</b>PATRIATA CLIMB · RUN AT DAWN</span>
+    <span><b>GALYAT</b>NATHIAGALI GALYAT RUN · COFFEE AT AYUBIA</span>
+    <!-- duplicated so the loop is seamless -->
+    <span><b>ISL-01</b>MARGALLA NIGHT LOOP · DAMAN-E-KOH <em>▲</em></span>
+    <span><b>ISL-02</b>PIR SOHAWA HILLCLIMB · TWIST <em>7.8</em></span>
+    <span><b>MURREE</b>ISLAMABAD → MURREE · LEAVE 04:00</span>
+    <span><b>ISB</b>SIMLY DAM LAKESIDE · LAST FUEL BHARAKAHU</span>
+    <span><b>KHANPUR</b>KHANPUR DAM RUN · VIEWPOINT <em>▲</em></span>
+    <span><b>MURREE</b>LEHTRAR ROAD → KOTLI SATTIAN</span>
+    <span><b>MURREE</b>PATRIATA CLIMB · RUN AT DAWN</span>
+    <span><b>GALYAT</b>NATHIAGALI GALYAT RUN · COFFEE AT AYUBIA</span>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="label">What it does</p>
+        <h2 class="display" style="margin-top:14px">The drive is<br><span class="cyan">the point.</span></h2>
+      </div>
+      <p>Not for commuting. Not for getting anywhere on time. Nothing in Roam optimises for arrival.</p>
+    </div>
+    <div class="grid">
+      <article class="card rv" style="--hue:#3DD6A0">
+        <span class="idx">[01] FIND</span>
+        <h3>Find a road</h3>
+        <p>A feed of routes filtered by tag and vehicle. Sort by nearest, newest, best-rated, twistiest, or what people are actually driving this month.</p>
+        <p class="ro">SORT › <b>TWISTIEST</b></p>
+      </article>
+      <article class="card rv" style="--hue:#FF9900">
+        <span class="idx">[02] JUDGE</span>
+        <h3>Judge it first</h3>
+        <p>Distance, time, a twist grade scored from how much the road really turns, stops placed by whoever posted it, and reviews from people who drove it.</p>
+        <p class="ro">TWIST GRADE › <b>7.8/10</b></p>
+      </article>
+      <article class="card rv" style="--hue:#8A8CFF">
+        <span class="idx">[03] TIME</span>
+        <h3>Know when to leave</h3>
+        <p>A departure-time profile sampled across the day, with the quiet window named. No guessing whether 8 pm is a mistake.</p>
+        <p class="ro">QUIET WINDOW › <b>04:00</b></p>
+      </article>
+      <article class="card rv" style="--hue:#00E5FF">
+        <span class="idx">[04] DRIVE</span>
+        <h3>Drive it</h3>
+        <p>A timer on wall-clock time. It survives the phone locking, pauses when you stop, and follows you anywhere in the app.</p>
+        <p class="ro">ELAPSED › <b>00:15</b></p>
+      </article>
+      <article class="card rv" style="--hue:#FF5C7A">
+        <span class="idx">[05] LOG</span>
+        <h3>Keep what you did</h3>
+        <p>Every run is logged against the route's own estimate, with personal bests marked. Find out whether you're actually getting quicker on your local hill.</p>
+        <p class="ro">PERSONAL BEST › <b>−0:42</b></p>
+      </article>
+      <article class="card rv" style="--hue:#C77DFF">
+        <span class="idx">[06] POST</span>
+        <h3>Post your own</h3>
+        <p>Drop pins and the line snaps to real roads. Add stops, photographs, notes. The road you loved stops being a secret.</p>
+        <p class="ro">STOPS › <b>⛽ ☕ 🍽 ▲</b></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="twist">
+  <div class="wrap">
+    <div class="copy rv">
+      <p class="label">Every road gets a number</p>
+      <h2 class="display">Pir Sohawa<br>is a <span class="amber">7.8.</span></h2>
+      <p><strong>6.1 km. 15 minutes. Twist grade 7.8 out of 10.</strong> Measured, not guessed: calibrated against real Islamabad roads from 193 to 728 degrees of turn per kilometre.</p>
+      <div class="meter" id="meter">
+        <div class="segs">
+          <i style="--c:#3DD6A0"></i><i style="--c:#3DD6A0"></i><i style="--c:#7FD46B"></i><i style="--c:#7FD46B"></i>
+          <i style="--c:#FFD23D"></i><i style="--c:#FFD23D"></i><i style="--c:#FF9900"></i><i style="--c:#FF9900"></i>
+          <i style="--c:#FF5C7A"></i><i style="--c:#FF3344"></i>
+        </div>
+        <div class="scale"><span>CALM</span><span>SWEEPERS</span><span>REDLINE</span></div>
+      </div>
+    </div>
+    <img class="phone rv" src="assets/phone.png" alt="Roam app showing the Pir Sohawa Hillclimb route: 6.1 km, 15 minutes, twist grade 7.8" loading="lazy" width="444" height="922">
+  </div>
+</section>
+
+<section class="when">
+  <div class="wrap">
+    <div class="copy rv">
+      <p class="label">Know when to leave</p>
+      <h2 class="display">139 min at <span class="cyan">04:00.</span><br>209 at <span class="amber">20:00.</span></h2>
+      <p>Live traffic data barely exists here, so Roam samples every route across the day and tells you the quiet window. Same road, same car, 70 minutes apart.</p>
+    </div>
+    <div class="chart rv" id="chart">
+      <div class="chart-top"><span>ISLAMABAD → MURREE</span><span>QUIET <b>04:00</b></span></div>
+      <div class="bars" id="bars"></div>
+      <div class="hours"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+      <div class="legend">
+        <span><b class="cyan">139m</b>BEST · 04:00</span>
+        <span><b class="amber">209m</b>WORST · 20:00</span>
+        <span><b style="color:var(--text)">+50%</b>LEAVE LATE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat rv"><b class="amber" data-n="21">21</b><span>ROUTES</span></div>
+    <div class="stat rv"><b data-n="5">5</b><span>REGIONS</span></div>
+    <div class="stat rv"><b class="cyan" data-n="729">729</b><span>KM OF ROAD</span></div>
+    <div class="stat rv"><b data-n="7.8">7.8</b><span>TWISTIEST</span></div>
+  </div>
+</div>
+
+<section class="fail">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="label">Built where maps fail</p>
+        <h2 class="display" style="margin-top:14px">Measured,<br><span class="amber">not assumed.</span></h2>
+      </div>
+      <p>Most mapping products quietly don't work here. We tested them, then built around what's actually true.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile rv">
+        <span class="k">Live traffic</span>
+        <div class="vs"><span class="bad">0%</span><span class="good">24h</span></div>
+        <p>All <strong>5,061</strong> segments came back <strong>unknown</strong>. So we profile the whole day instead.</p>
+      </div>
+      <div class="tile rv">
+        <span class="k">Finding a place</span>
+        <div class="vs"><span class="bad">0/8</span><span class="good">8/8</span></div>
+        <p>"Monal" returned nothing. "Pir Sohawa" landed <strong>200 km away</strong>. OpenStreetMap found every one.</p>
+      </div>
+      <div class="tile rv">
+        <span class="k">Points of interest</span>
+        <div class="vs"><span class="bad">0</span><span class="good">✓</span></div>
+        <p>Category search found nothing. Stops are placed by <strong>the person who's been there</strong>.</p>
+      </div>
+      <div class="tile rv">
+        <span class="k">Twist grade</span>
+        <div class="vs"><span class="bad">9–10</span><span class="good">1.7–7.8</span></div>
+        <p>The first scale pinned every road at the top. <strong>Recalibrated</strong> so the number actually tells roads apart.</p>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag rv" style="--c:#3DD6A0">scenic</span><span class="tag rv" style="--c:#FFB13D">curvy</span>
+      <span class="tag rv" style="--c:#FF5C7A">technical</span><span class="tag rv" style="--c:#8A8CFF">night</span>
+      <span class="tag rv" style="--c:#C77DFF">weekend</span><span class="tag rv" style="--c:#7FA8C9">highway</span>
+      <span class="tag rv" style="--c:#D98E5A">rough</span><span class="tag rv" style="--c:#A8C66C">rural</span>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap rv">
+    <img src="assets/icon.png" alt="Roam icon">
+    <h2 class="display">Every road someone loved is a road <span class="amber">nobody else can find.</span></h2>
+    <p>Roam is where they write it down. Find your next Sunday drive, or post the one you keep meaning to tell people about.</p>
+    <div class="ctas">
+      <!-- TODO: swap href for the Play Store listing URL once it is live -->
+      <a class="store play" href="#" aria-label="Get Roam on Google Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8 13.8 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1Zm11.3 11.3 2.4 2.4-11 6.3 8.6-8.7Zm3.6-4.2 2.8 1.6c.8.5.8 1.6 0 2.1l-2.8 1.6-2.6-2.6 2.6-2.7ZM6.3 2.2l11 6.3-2.4 2.4-8.6-8.7Z"/></svg>
+        <div><small>Get it on</small><span>Google Play</span></div>
+      </a>
+      <div class="store ios" aria-label="App Store, coming soon">
+        <em>SOON</em>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5Z"/></svg>
+        <div><small>Coming soon to</small><span>App Store</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" style="font-size:18px"><i></i>ROAM</a>
+    <span>ROADS WORTH DRIVING · ISLAMABAD</span>
+    <span><a href="https://instagram.com/roam_index" rel="noopener">INSTAGRAM</a> · © 2026</span>
+  </div>
+</footer>
+
+<script>
+// Murree run, minutes by departure hour. Ends are the measured 139 (04:00) and 209 (20:00);
+// ponytail: hours between are a smooth illustrative curve, swap in the real profile from the API if wanted.
+const mins=[150,146,142,140,139,141,150,168,186,192,184,176,174,178,182,190,198,204,207,208,209,198,180,162];
+const bars=document.getElementById('bars');
+mins.forEach((m,i)=>{
+  const t=(m-130)/(212-130);
+  const c=t<.25?'#3DD6A0':t<.5?'#FFD23D':t<.8?'#FF9900':'#FF5C7A';
+  const el=document.createElement('i');
+  el.style.cssText=`--h:${Math.round(25+t*75)}%;--c:${c};--i:${i}`;
+  if(i===4||i===20) el.className='q';
+  el.title=`${String(i).padStart(2,'0')}:00 · ${m} min`;
+  bars.appendChild(el);
+});
+
+// Light up 8 of 10 segments (7.8 rounds to 8)
+document.querySelectorAll('#meter i').forEach((el,i)=>{ if(i<8){el.classList.add('lit');el.style.animationDelay=i*90+'ms';} });
+
+// Stagger siblings in grids so they cascade in rather than land at once
+document.querySelectorAll('.grid,.tiles,.tags,.stats .wrap').forEach(g=>
+  [...g.children].forEach((el,i)=>el.style.setProperty('--d',i*90+'ms')));
+
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Odometer roll from 0 to the number already in the markup
+function count(el){
+  const end=parseFloat(el.dataset.n), dec=el.dataset.n.includes('.')?1:0, t0=performance.now();
+  (function tick(t){
+    const p=Math.min(1,(t-t0)/1400), v=end*(1-Math.pow(1-p,3));
+    el.textContent=v.toFixed(dec);
+    if(p<1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  e.target.classList.add('on');
+  const n=e.target.querySelector('[data-n]');
+  if(n&&!still) count(n);
+  // stagger is for the entrance only; hover should answer at once
+  setTimeout(()=>e.target.style.transitionDelay='0s',1500);
+  io.unobserve(e.target);
+}),{threshold:.18});
+document.querySelectorAll('.rv,#meter,#chart').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
