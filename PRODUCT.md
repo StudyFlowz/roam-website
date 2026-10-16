@@ -65,7 +65,11 @@ Measured facts (from the root `README.md`, safe to quote):
 - Mapbox geocoding scored 0/8 on well-known Islamabad places; OpenStreetMap scored 8/8.
 - Twist grade recalibrated against measured Islamabad roads (193 to 728 degrees per km).
 
-Assets: `assets/icon.png`, `assets/phone.png` (app screenshot, Pir Sohawa route, cropped from `instagram/week2/pull_3_grade.png`), Instagram post art in `../instagram/`.
+Assets: `assets/icon.png` and `assets/mark.png` (tight crop of the icon), Instagram post art in `../instagram/`.
+
+Road photos in `assets/roads/` are Wikimedia Commons images already attached to those routes in production (`seed.py` credits each). Licences need attribution: the site footer credits each photo. Do not use the old `phone.png` screenshot: it showed a stock Unsplash photo.
+
+Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22, every 2 h) for about 15 Pakistan routes. Murree Old Road: 64 min at 06:00, 108 min at 16:00 (+69%). The README's 139/209 Murree figures have no stored profile behind them.
 
 Production totals (read-only aggregate query on the prod Postgres, 2026-10-16):
 
