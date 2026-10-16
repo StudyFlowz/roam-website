@@ -1,0 +1,7 @@
+.git
+.impeccable
+.DS_Store
+PRODUCT.md
+README.md
+Dockerfile
+.dockerignore
