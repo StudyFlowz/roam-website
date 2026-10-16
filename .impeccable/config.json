@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-16T14:31:26.370Z",
+        "reason": "assistant judgment: VFD phosphor look is the brand world, from roam-frontend theme.ts and Instagram posts"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-16T14:31:26.391Z",
+        "reason": "assistant judgment: VFD phosphor look is the brand world, from roam-frontend theme.ts and Instagram posts"
+      },
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-16T14:31:26.414Z",
+        "reason": "assistant judgment: VFD phosphor look is the brand world, from roam-frontend theme.ts and Instagram posts"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-16T14:31:26.434Z",
+        "reason": "assistant judgment: VFD phosphor look is the brand world, from roam-frontend theme.ts and Instagram posts"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-16T14:31:26.454Z",
+        "reason": "assistant judgment: VFD phosphor look is the brand world, from roam-frontend theme.ts and Instagram posts"
+      }
+    ]
+  }
+}

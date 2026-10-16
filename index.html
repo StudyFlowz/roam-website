@@ -21,7 +21,7 @@
 :root{
   --ground:#0A0B0E; --panel:#13151B; --raised:#1B1E26; --rule:#232834; --rail:#333B4D;
   --data:#00E5FF; --action:#FF9900; --alert:#FF3344;
-  --text:#E2E8F0; --dim:#7D8A99; --faint:#475569;
+  --text:#E2E8F0; --dim:#7D8A99; --faint:#788497;
   --display:'Chivo',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
   --wrap:1180px; --gut:clamp(16px,4vw,40px);
 }
@@ -50,10 +50,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .brand i{width:12px;height:12px;background:var(--action);box-shadow:0 0 14px var(--action),0 0 30px rgba(255,153,0,.5)}
 .nav-r{display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:13px;color:var(--dim)}
 .nav-r a:hover{color:var(--text)}
-.live{display:flex;align-items:center;gap:8px;color:var(--data);letter-spacing:.2em}
-.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--data);box-shadow:0 0 10px var(--data);animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
-@media (max-width:640px){.nav-hide{display:none}}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:center;overflow:hidden;padding:72px 0 96px}
@@ -67,8 +64,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .brackets i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
 .brackets i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
 .brackets i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
-.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;width:100%}
-.hero h1{font-size:clamp(52px,9.2vw,132px);margin:22px 0 28px}
+/* No z-index here: a stacking context would stop the icon's lighten blend at this box and show its square. The glows go under instead. */
+.hero::before,.hero::after{z-index:-1}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:center;width:100%}
+.hero .mark{max-width:560px}
+.hero h1{font-size:clamp(52px,7.2vw,104px);margin:22px 0 28px}
 .hero h1 .amber{text-shadow:0 0 40px rgba(255,153,0,.35)}
 .lede{font-size:clamp(17px,1.6vw,21px);color:var(--dim);max-width:34ch}
 .lede strong{color:var(--text);font-weight:700}
@@ -77,13 +77,14 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .store{display:flex;align-items:center;gap:14px;padding:13px 22px 13px 18px;border-radius:4px;min-width:210px;
   font-family:var(--mono);transition:transform .2s,box-shadow .2s,background .2s}
 .store svg{width:26px;height:26px;flex:none}
-.store small{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
+.store small{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
 .store span{display:block;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.02em;line-height:1.15}
 .store.play{background:var(--action);color:var(--ground);box-shadow:0 0 0 1px var(--action),0 10px 40px -10px rgba(255,153,0,.7)}
 .store.play:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--action),0 16px 50px -10px rgba(255,153,0,.9)}
-.store.ios{border:1px dashed var(--rail);color:var(--faint);cursor:not-allowed;position:relative}
+.store.ios{border:1px dashed var(--rail);color:var(--dim);cursor:not-allowed;position:relative}
+.store.ios small{opacity:1}
 .store.ios em{position:absolute;top:-10px;right:10px;background:var(--ground);border:1px solid var(--data);color:var(--data);
-  font-style:normal;font-size:9px;letter-spacing:.2em;padding:2px 7px}
+  font-style:normal;font-size:11px;letter-spacing:.16em;padding:1px 7px}
 
 /* the mark and a road drawing itself behind it */
 .mark{position:relative;aspect-ratio:1;max-width:520px;width:100%;justify-self:center}
@@ -92,8 +93,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   filter:drop-shadow(0 0 6px rgba(0,229,255,.8));stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3.2s cubic-bezier(.6,.1,.3,1) .4s forwards}
 .road.ghost{stroke:var(--rule);filter:none;stroke-width:1.5;animation:none;stroke-dashoffset:0;stroke-dasharray:4 8}
 @keyframes draw{to{stroke-dashoffset:0}}
-.mark img{position:absolute;inset:14%;width:72%;height:72%;mix-blend-mode:lighten;
-  filter:drop-shadow(0 0 22px rgba(255,153,0,.45));animation:float 7s ease-in-out infinite}
+/* The icon PNG is opaque, so a drop-shadow would glow its square edge. Lighten drops the dark
+   ground into the page; the glow is a soft radial behind it instead. */
+.mark::before{content:"";position:absolute;inset:12%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,153,0,.28),transparent)}
+.mark img{position:absolute;inset:4%;width:92%;height:92%;mix-blend-mode:lighten;animation:float 7s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-12px) rotate(-1.5deg)}}
 .pin{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--dim);
   background:rgba(19,21,27,.85);border:1px solid var(--rule);padding:6px 10px;border-radius:2px;white-space:nowrap;
@@ -106,7 +109,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
-  .mark{max-width:340px;order:-1;margin-bottom:-10px}
+  .hero .mark{max-width:420px;order:-1;margin-bottom:-10px}
   .pin.a{left:0}.pin.b{right:0}
 }
 
@@ -152,7 +155,7 @@ section{padding:clamp(80px,11vw,140px) 0;position:relative}
 .meter.on .segs i.lit{background:var(--c);box-shadow:0 0 14px -2px var(--c);animation:seg .4s backwards}
 @keyframes seg{from{transform:scaleY(.2);opacity:0}}
 .scale{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--faint)}
-.phone{max-width:380px;justify-self:center;filter:drop-shadow(0 40px 60px rgba(0,0,0,.7)) drop-shadow(0 0 80px rgba(0,229,255,.12));
+.phone{max-width:380px;justify-self:center;border-radius:12%/5.8%;box-shadow:0 40px 60px rgba(0,0,0,.7),0 0 80px rgba(0,229,255,.12);
   transform:rotate(3deg);transition:transform .6s}
 .phone:hover{transform:rotate(0) scale(1.02)}
 @media (max-width:900px){.twist .wrap{grid-template-columns:1fr}.phone{max-width:300px;transform:none}}
@@ -207,7 +210,7 @@ section{padding:clamp(80px,11vw,140px) 0;position:relative}
 .final::before{content:"";position:absolute;left:50%;top:50%;width:900px;height:900px;transform:translate(-50%,-50%);
   background:radial-gradient(closest-side,rgba(255,153,0,.16),transparent 70%);pointer-events:none}
 .final .wrap{position:relative}
-.final img{width:120px;margin:0 auto 34px;mix-blend-mode:lighten;filter:drop-shadow(0 0 24px rgba(255,153,0,.5))}
+.final img{width:160px;margin:0 auto 34px;mix-blend-mode:lighten}
 .final h2{font-size:clamp(40px,6.4vw,92px);max-width:16ch;margin:0 auto}
 .final p{color:var(--dim);font-size:18px;margin:26px auto 0;max-width:42ch}
 .final .ctas{justify-content:center}
@@ -215,6 +218,36 @@ section{padding:clamp(80px,11vw,140px) 0;position:relative}
 footer{border-top:1px solid var(--rule);padding:34px 0 calc(34px + env(safe-area-inset-bottom))}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.12em}
 footer a:hover{color:var(--data)}
+
+/* phones */
+@media (max-width:600px){
+  section{padding:64px 0}
+  .label{letter-spacing:.18em;font-size:11px}
+  .brackets{display:none}
+  .hero{padding:28px 0 64px;min-height:0}
+  .hero h1{margin:16px 0 20px}
+  .hero .mark{max-width:360px}
+  .pin{font-size:10px;padding:5px 8px}
+  .pin.a{top:2%}.pin.b{bottom:4%}
+  .ctas{margin-top:30px;gap:12px}
+  .store{flex:1 1 100%;justify-content:center}
+  .ticker::before{content:">";padding:0 14px}
+  .track{padding-left:40px;font-size:12px}
+  .head{margin-bottom:36px}
+  .card{padding:28px 22px 30px}
+  .twist .copy p{font-size:17px}
+  .meter{margin-top:30px}
+  .phone{max-width:260px;margin-top:8px}
+  .chart{padding:22px 18px 16px}
+  .bars{height:180px;gap:4px}
+  .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .legend b{font-size:18px}
+  .legend span{font-size:11px}
+  .stat{padding:32px 8px}
+  .tags{margin-top:40px}
+  .final img{width:128px}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:12px}
+}
 
 /* scroll reveal; --d staggers siblings (set in the script) */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
@@ -253,7 +286,6 @@ footer a:hover{color:var(--data)}
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Roam home"><i></i>ROAM</a>
     <div class="nav-r">
-      <span class="live nav-hide">LIVE · ISB</span>
       <a href="https://instagram.com/roam_index" rel="noopener">@roam_index</a>
     </div>
   </div>
@@ -264,7 +296,7 @@ footer a:hover{color:var(--data)}
     <div>
       <p class="label rv"><b>150 roads</b> · 5 countries · graded by twist</p>
       <h1 class="display rv">Roads your GPS <span class="amber">never</span> suggested.</h1>
-      <p class="lede rv">Navigation apps answer <em>how do I get there?</em> <strong>Roam answers where should I go.</strong> Roads worth driving, posted by the people who drove them.</p>
+      <p class="lede rv">Maps tell you how to get there. <strong>Roam tells you where to go.</strong> Roads worth driving, posted by the people who drove them.</p>
       <div class="ctas rv">
         <!-- TODO: swap href for the Play Store listing URL once it is live -->
         <a class="store play" href="#" aria-label="Get Roam on Google Play">
@@ -284,7 +316,7 @@ footer a:hover{color:var(--data)}
         <path class="road ghost" d="M30 360 C 80 330, 60 290, 110 280 S 170 300, 160 250 S 100 210, 140 180 S 230 200, 220 150 S 160 110, 210 80 S 300 100, 290 60 S 330 20, 380 30"/>
         <path class="road" pathLength="1" d="M30 360 C 80 330, 60 290, 110 280 S 170 300, 160 250 S 100 210, 140 180 S 230 200, 220 150 S 160 110, 210 80 S 300 100, 290 60 S 330 20, 380 30"/>
       </svg>
-      <img src="assets/icon.png" alt="">
+      <img src="assets/mark.png" alt="">
       <div class="pin a">[ISL-02] <b>PIR SOHAWA</b></div>
       <div class="pin b">TWIST <b>7.8</b>/10</div>
     </div>
@@ -453,7 +485,7 @@ footer a:hover{color:var(--data)}
 
 <section class="final">
   <div class="wrap rv">
-    <img src="assets/icon.png" alt="Roam icon">
+    <img src="assets/mark.png" alt="Roam icon">
     <h2 class="display">Every road someone loved is a road <span class="amber">nobody else can find.</span></h2>
     <p>Roam is where they write it down. Find your next Sunday drive, or post the one you keep meaning to tell people about.</p>
     <div class="ctas">
