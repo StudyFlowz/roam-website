@@ -223,12 +223,6 @@ footer a:hover{color:var(--data)}
 .tag.rv{transform:translateY(14px) scale(.9);transition:opacity .6s,transform .6s cubic-bezier(.2,.8,.2,1),background .2s,color .2s;transition-delay:var(--d,0ms)}
 .tag.rv.on{transform:none}
 
-/* a radar line sweeping down the hero */
-.hero .sweep{position:absolute;left:0;right:0;top:0;height:120px;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(0,229,255,.06) 80%,rgba(0,229,255,.35) 99%,transparent);
-  animation:sweep 6s linear infinite}
-@keyframes sweep{from{transform:translateY(-120px)}to{transform:translateY(100svh)}}
-
 /* failed numbers get struck through as they arrive, the good one flickers on like a VFD */
 .vs .bad{text-decoration:none;position:relative}
 .vs .bad::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:var(--alert);
@@ -249,7 +243,7 @@ footer a:hover{color:var(--data)}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .road{stroke-dashoffset:0}.pin{opacity:1}.rv{opacity:1;transform:none}
   .bars i{transform:none}
-  .hero .sweep{display:none}.vs .bad::after{transform:scaleX(1)}
+  .vs .bad::after{transform:scaleX(1)}
 }
 </style>
 </head>
@@ -266,9 +260,7 @@ footer a:hover{color:var(--data)}
 </nav>
 
 <header class="hero" id="top">
-  <div class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <div class="sweep" aria-hidden="true"></div>
-  <div class="wrap">
+  <div class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>  <div class="wrap">
     <div>
       <p class="label rv">Islamabad · <b>21 roads</b> · graded by twist</p>
       <h1 class="display rv">Roads your GPS <span class="amber">never</span> suggested.</h1>
