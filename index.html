@@ -262,7 +262,7 @@ footer a:hover{color:var(--data)}
 <header class="hero" id="top">
   <div class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>  <div class="wrap">
     <div>
-      <p class="label rv">Islamabad · <b>21 roads</b> · graded by twist</p>
+      <p class="label rv"><b>150 roads</b> · 5 countries · graded by twist</p>
       <h1 class="display rv">Roads your GPS <span class="amber">never</span> suggested.</h1>
       <p class="lede rv">Navigation apps answer <em>how do I get there?</em> <strong>Roam answers where should I go.</strong> Roads worth driving, posted by the people who drove them.</p>
       <div class="ctas rv">
@@ -404,10 +404,10 @@ footer a:hover{color:var(--data)}
 
 <div class="stats">
   <div class="wrap">
-    <div class="stat rv"><b class="amber" data-n="21">21</b><span>ROUTES</span></div>
-    <div class="stat rv"><b data-n="5">5</b><span>REGIONS</span></div>
-    <div class="stat rv"><b class="cyan" data-n="729">729</b><span>KM OF ROAD</span></div>
-    <div class="stat rv"><b data-n="7.8">7.8</b><span>TWISTIEST</span></div>
+    <div class="stat rv"><b class="amber" data-n="150">150</b><span>ROUTES</span></div>
+    <div class="stat rv"><b data-n="36">36</b><span>REGIONS</span></div>
+    <div class="stat rv"><b class="cyan" data-n="5213">5,213</b><span>KM OF ROAD</span></div>
+    <div class="stat rv"><b data-n="5">5</b><span>COUNTRIES</span></div>
   </div>
 </div>
 
@@ -474,7 +474,7 @@ footer a:hover{color:var(--data)}
 <footer>
   <div class="wrap">
     <a class="brand" href="#top" style="font-size:18px"><i></i>ROAM</a>
-    <span>ROADS WORTH DRIVING · ISLAMABAD</span>
+    <span>ROADS WORTH DRIVING · BUILT IN ISLAMABAD</span>
     <span><a href="https://instagram.com/roam_index" rel="noopener">INSTAGRAM</a> · © 2026</span>
   </div>
 </footer>
@@ -507,7 +507,7 @@ function count(el){
   const end=parseFloat(el.dataset.n), dec=el.dataset.n.includes('.')?1:0, t0=performance.now();
   (function tick(t){
     const p=Math.min(1,(t-t0)/1400), v=end*(1-Math.pow(1-p,3));
-    el.textContent=v.toFixed(dec);
+    el.textContent=dec?v.toFixed(dec):Math.round(v).toLocaleString('en');
     if(p<1) requestAnimationFrame(tick);
   })(t0);
 }
