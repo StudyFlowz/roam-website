@@ -12,6 +12,14 @@ server {
     location /assets/ {
         add_header Cache-Control "public, max-age=604800";
     }
+    # Android fetches this to verify the app may open this site's ticket links. It must be the
+    # real file as JSON, never the page below standing in for a missing one.
+    location /.well-known/ {
+        default_type application/json;
+        try_files $uri =404;
+    }
+    # Every other path is the landing page, including the ticket links (/route/…, /meet/…,
+    # /crew/join/…) that a phone without Roam opens.
     location / {
         add_header Cache-Control "no-cache";
         try_files $uri $uri/ /index.html;
