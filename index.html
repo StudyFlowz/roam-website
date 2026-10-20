@@ -188,6 +188,13 @@ section{padding:clamp(80px,11vw,140px) 0;position:relative}
 @media (max-width:600px){.roads{grid-template-columns:1fr}.shot{aspect-ratio:4/3}}
 .credits{font-size:11px;line-height:1.7;letter-spacing:.04em;text-transform:none;flex-basis:100%}
 .credits a{text-decoration:underline;text-decoration-color:var(--rail)}
+.ast{margin-left:2px;font-family:var(--mono);font-size:14px;font-weight:700;font-style:normal;line-height:0;vertical-align:super;color:var(--action);text-decoration:none}
+.ast:hover{color:var(--data)}
+#eggs{scroll-margin-bottom:40px}
+#eggs:target .egg{color:var(--action)}
+.egg{position:relative;color:var(--dim);cursor:help;outline:none}
+.egg:hover,.egg:focus{color:var(--action)}
+.egg:hover::after,.egg:focus::after{content:attr(data-en);position:absolute;bottom:calc(100% + 6px);left:0;white-space:nowrap;padding:5px 9px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);color:var(--text);font-family:var(--mono);font-size:11px;letter-spacing:.08em}
 
 /* when to leave */
 .when .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
@@ -380,7 +387,7 @@ footer a:hover{color:var(--data)}
     <div class="head rv">
       <div>
         <p class="label">What it does</p>
-        <h2 class="display" style="margin-top:14px">The drive is<br><span class="cyan">the point.</span></h2>
+        <h2 class="display" style="margin-top:14px">The drive is<br><span class="cyan">the point.</span><a class="ast" href="#eggs" aria-label="Footnote">*</a></h2>
       </div>
       <p>Not for commuting. Not for getting anywhere on time. Nothing in Roam optimises for arrival.</p>
     </div>
@@ -401,7 +408,7 @@ footer a:hover{color:var(--data)}
         <span class="idx">[03] TIME</span>
         <h3>Know when to leave</h3>
         <p>A departure-time profile sampled across the day, with the quiet window named. No guessing whether 8 pm is a mistake.</p>
-        <p class="ro">QUIET WINDOW › <b>04:00</b></p>
+        <p class="ro">QUIET WINDOW › <b>04:00</b><a class="ast" href="#eggs" aria-label="Footnote">*</a></p>
       </article>
       <article class="card rv" style="--hue:#00E5FF">
         <span class="idx">[04] DRIVE</span>
@@ -442,7 +449,7 @@ footer a:hover{color:var(--data)}
           <svg class="line" viewBox="-6 -6 112 112" aria-hidden="true"><path pathLength="1" d="M65.3 100.0 L65.3 99.9 L65.4 99.8 L65.6 99.6 L65.8 99.3 L66.2 99.1 L66.5 98.7 L66.7 98.4 L66.9 98.1 L67.0 97.9 L67.0 97.6 L67.1 97.1 L67.0 96.4 L67.3 95.6 L67.3 95.1 L67.3 94.5 L67.2 94.1 L67.2 93.4 L67.6 92.5 L67.8 92.0 L67.8 91.6 L67.6 91.4 L67.3 91.3 L66.6 91.2 L66.2 90.9 L66.0 90.6 L65.9 90.1 L66.2 89.6 L66.1 89.2 L65.5 88.8 L65.0 88.3 L64.8 87.9 L64.7 87.7 L64.6 87.4 L64.6 87.1 L64.9 85.9 L64.9 85.8 L64.8 85.7 L64.7 85.5 L64.6 85.4 L64.5 85.4 L64.3 85.3 L64.1 85.1 L63.7 84.9 L63.4 84.7 L63.4 84.6 L63.5 84.4 L63.6 84.2 L63.7 84.0 L63.8 83.8 L63.9 83.6 L63.9 83.2 L63.8 82.9 L63.7 82.8 L63.6 82.6 L63.5 82.4 L63.0 82.0 L62.9 81.8 L62.8 81.7 L62.9 81.5 L63.0 81.3 L63.2 81.2 L63.6 81.0 L64.9 79.2 L64.9 79.0 L64.9 78.8 L64.8 78.4 L64.5 78.1 L64.2 77.9 L64.0 77.5 L64.2 77.2 L64.4 76.8 L64.5 76.3 L64.6 75.9 L64.4 75.5 L64.0 75.1 L63.7 74.7 L63.4 74.3 L63.0 74.1 L62.5 74.1 L61.7 74.4 L61.1 74.7 L60.7 74.9 L60.2 75.1 L59.5 75.0 L58.8 75.0 L58.1 75.1 L57.3 75.2 L56.6 75.4 L56.2 75.4 L55.8 75.0 L55.0 74.4 L54.0 73.5 L53.2 72.9 L52.8 72.1 L52.6 71.4 L52.3 70.2 L52.3 69.9 L52.5 69.8 L52.7 70.1 L53.0 70.5 L53.4 71.1 L53.9 71.7 L54.5 72.0 L54.9 72.3 L55.2 72.4 L55.5 72.3 L55.6 72.3 L55.8 72.0 L55.9 71.6 L55.5 71.3 L55.0 71.1 L54.4 70.7 L53.8 70.4 L53.3 69.9 L52.6 68.7 L51.4 67.4 L50.8 66.0 L50.6 65.5 L50.2 65.1 L49.8 64.9 L49.7 64.5 L49.9 64.0 L50.2 63.5 L50.7 63.0 L51.0 62.7 L51.3 62.6 L51.5 62.7 L51.4 63.1 L51.2 63.5 L51.2 63.7 L51.4 63.9 L51.6 63.9 L51.8 63.7 L52.0 63.3 L52.5 62.5 L53.4 59.5 L53.1 59.0 L52.9 58.6 L52.9 58.2 L53.1 58.0 L53.7 57.6 L54.6 57.4 L55.2 57.1 L55.5 56.9 L55.9 56.9 L56.5 56.4 L56.6 55.7 L56.6 55.2 L55.8 54.8 L55.8 54.6 L55.8 54.5 L57.1 54.1 L57.8 53.8 L58.6 53.6 L58.8 53.2 L58.8 52.7 L58.6 51.9 L58.5 51.7 L58.1 51.4 L56.7 50.9 L54.6 50.1 L52.1 49.0 L51.5 48.7 L51.3 48.3 L51.1 47.6 L51.0 47.0 L51.1 46.6 L51.5 46.5 L52.0 46.8 L55.0 47.7 L55.4 47.7 L55.5 47.3 L54.4 45.5 L54.0 44.8 L53.8 44.6 L53.3 44.3 L52.6 44.2 L52.0 43.8 L51.3 43.6 L50.3 43.7 L49.8 43.5 L48.5 42.3 L48.0 41.9 L47.5 41.5 L47.0 41.3 L46.9 41.2 L47.0 41.0 L47.0 40.9 L47.2 40.9 L48.2 41.5 L48.7 41.9 L49.5 42.3 L49.6 42.3 L49.7 42.3 L49.8 42.2 L49.8 42.2 L49.8 42.1 L49.8 42.0 L49.7 41.8 L48.7 41.3 L48.4 41.0 L47.4 40.3 L46.7 39.8 L46.1 39.4 L45.8 39.1 L45.8 39.0 L45.9 38.9 L46.0 38.9 L46.2 38.9 L47.0 39.4 L47.3 39.8 L47.5 39.9 L47.6 39.9 L47.7 39.8 L47.6 39.6 L47.3 39.2 L46.4 38.2 L46.0 37.7 L45.4 37.4 L45.2 37.1 L45.2 37.0 L45.3 36.9 L45.7 36.9 L46.5 37.1 L47.1 37.6 L47.5 38.1 L47.8 38.3 L47.9 38.3 L48.0 38.2 L48.0 37.9 L47.7 37.3 L47.7 36.6 L47.9 36.1 L47.9 35.7 L47.6 35.4 L47.3 34.9 L47.0 34.4 L46.6 33.8 L46.1 33.4 L45.7 33.0 L45.4 32.5 L45.5 31.8 L45.6 31.3 L45.4 30.5 L45.2 30.1 L44.8 29.2 L44.6 28.7 L44.5 28.1 L44.4 27.5 L44.1 26.8 L43.9 26.5 L43.4 26.2 L43.0 25.9 L42.9 25.7 L43.0 25.3 L43.3 24.5 L43.4 24.3 L43.7 24.0 L44.0 23.3 L44.2 23.0 L44.4 22.7 L44.5 22.2 L44.5 22.0 L44.7 21.8 L45.0 21.6 L45.3 21.2 L45.4 20.9 L45.3 20.5 L45.2 20.2 L45.1 19.9 L45.2 19.7 L45.6 19.7 L45.6 19.5 L45.6 19.5 L45.2 19.4 L44.7 19.4 L44.3 19.5 L43.7 19.8 L43.7 19.7 L43.7 19.3 L43.7 19.0 L43.4 18.3 L43.5 18.1 L43.8 17.9 L44.0 17.6 L44.5 17.4 L45.5 17.1 L46.9 16.9 L47.7 16.7 L48.4 16.1 L48.6 15.8 L48.6 15.3 L48.7 15.1 L49.0 15.0 L49.3 15.0 L49.5 15.2 L49.7 15.3 L50.0 15.3 L50.3 15.1 L51.3 14.4 L51.7 14.3 L52.2 14.2 L52.4 13.7 L53.0 12.8 L53.2 12.7 L53.8 12.5 L54.6 12.5 L54.6 12.2 L54.5 12.1 L54.3 12.0 L53.7 12.2 L53.3 12.1 L52.7 11.9 L50.8 11.2 L50.5 11.1 L50.5 11.0 L50.6 10.9 L50.8 10.7 L51.0 10.6 L51.0 10.5 L50.9 10.3 L50.2 9.2 L50.0 8.9 L49.6 8.9 L49.1 9.0 L48.8 8.9 L48.5 8.8 L48.0 8.8 L47.5 8.8 L47.0 8.9 L46.4 8.9 L45.8 8.9 L45.4 9.0 L44.7 9.2 L44.2 9.6 L43.8 9.8 L43.3 9.9 L42.9 9.9 L41.9 10.3 L41.4 10.7 L40.6 11.4 L40.3 11.5 L39.2 11.4 L38.1 11.5 L37.6 11.4 L37.3 11.2 L36.9 10.9 L36.2 10.0 L35.7 9.6 L35.2 9.3 L34.9 8.8 L34.7 8.3 L34.7 7.6 L34.7 6.9 L34.8 6.6 L34.8 6.1 L34.7 5.6 L34.6 5.3 L34.4 4.9 L34.2 4.6 L34.0 4.1 L33.9 3.6 L33.8 3.2 L33.6 2.8 L33.4 2.3 L33.1 2.0 L32.9 1.5 L32.6 1.1 L32.6 0.8 L32.5 0.4 L32.2 0.0"/></svg>
           <div class="identity">
             <span class="code">[ISL]</span>
-            <h3>Pir Sohawa Hillclimb</h3>
+            <h3>Pir Sohawa Hillclimb<a class="ast" href="#eggs" aria-label="Footnote">*</a></h3>
             <p class="facts"><span>ISLAMABAD</span><span>BIKES</span><span>RUN AT DAWN</span></p>
           </div>
         </div>
@@ -643,7 +650,7 @@ footer a:hover{color:var(--data)}
   <div class="wrap rv">
     <img src="/assets/mark.png" alt="Roam icon">
     <h2 class="display">Every road someone loved is a road <span class="amber">nobody else can find.</span></h2>
-    <p>Roam is where they write it down. Find your next Sunday drive, or post the one you keep meaning to tell people about.</p>
+    <p>Roam is where they write it down. Find your next Sunday drive<a class="ast" href="#eggs" aria-label="Footnote">*</a>, or post the one you keep meaning to tell people about.</p>
     <div class="ctas">
       <!-- TODO: swap href for the Play Store listing URL once it is live -->
       <a class="store play" href="#" aria-label="Get Roam on Google Play">
@@ -662,8 +669,9 @@ footer a:hover{color:var(--data)}
 <footer>
   <div class="wrap">
     <a class="brand" href="#top" style="font-size:18px"><i></i>ROAM</a>
-    <span>ROADS WORTH DRIVING · BUILT IN ISLAMABAD</span>
+    <span>ROADS WORTH DRIVING · BUILT IN ISLAMABAD<a class="ast" href="#eggs" aria-label="Footnote">*</a></span>
     <span><a href="https://instagram.com/roam_index" rel="noopener">INSTAGRAM</a> · <a href="/privacy">PRIVACY</a> · <a href="/delete-account">DELETE ACCOUNT</a> · <a href="mailto:whowantswhat.studio@gmail.com?subject=Roam">CONTACT</a> · © 2026</span>
+    <p class="credits" id="eggs"><b class="amber">*</b> <span class="egg" lang="ja" tabindex="0" data-en="Fujiwara Tofu Shop (private use)">藤原とうふ店（自家用）</span> · <span class="egg" lang="ja" tabindex="0" data-en="Mt. Akina">秋名山</span> · <span class="egg" lang="ja" tabindex="0" data-en="4 a.m. Tofu run. Empty roads.">午前4時</span> · <span class="egg" lang="ja" tabindex="0" data-en="Gutter run">溝落とし</span> · <span class="egg" lang="ja" tabindex="0" data-en="Paper cup of water. Don't spill it.">紙コップの水</span> · <span class="egg" lang="ja" tabindex="0" data-en="A random Thursday. Nowhere to drive. Built this instead.">木曜日</span></p>
     <p class="credits">Photos from Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Tilla_Grani.JPG" rel="noopener">Pir Sohawa Hillclimb</a>: Khalid Mahmood, CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Hingool_Nationa_Park_and_Makran_Coastal_Highway.jpg" rel="noopener">Kund Malir to Buzi Pass</a>: Asad.aman83, CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Mendocino_Coast_near_Westport_CA_(5999582313).jpg" rel="noopener">Westport to Leggett</a>: Christopher Neugebauer from Hobart, Australia, CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Calabogie_Lake_DSCN0811r.jpg" rel="noopener">Calabogie Road</a>: Petersent, CC0 · <a href="https://commons.wikimedia.org/wiki/File:Chevreuse_Valley_6.jpg" rel="noopener">Vallée de Chevreuse and the Dix-Sept Tournants</a>: Lionel Allorge, CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Ruissalo_3.jpg" rel="noopener">Ruissalo Island Road</a>: Tomisti, CC BY-SA 3.0.</p>
   </div>
 </footer>
