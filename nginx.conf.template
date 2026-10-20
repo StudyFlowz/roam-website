@@ -22,6 +22,6 @@ server {
     # /crew/join/…) that a phone without Roam opens.
     location / {
         add_header Cache-Control "no-cache";
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri.html $uri/ /index.html;
     }
 }

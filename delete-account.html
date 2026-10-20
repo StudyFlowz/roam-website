@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delete your account | Roam</title>
+<meta name="description" content="How to delete your Roam account, and what happens to your data when you do.">
+<meta name="theme-color" content="#0A0B0E">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,700;0,800;1,900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Built from index.html's own pieces (nav, brackets, .head, .grid cards, footer).
+   Google Play links here from the store listing's data deletion field. */
+:root{
+  --ground:#0A0B0E; --panel:#13151B; --raised:#1B1E26; --rule:#232834; --rail:#333B4D;
+  --data:#00E5FF; --action:#FF9900; --alert:#FF3344;
+  --text:#E2E8F0; --dim:#7D8A99; --faint:#788497;
+  --display:'Chivo',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --wrap:1180px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ground);color:var(--text);font-family:var(--display);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--action);color:var(--ground)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+.label b{color:var(--data);font-weight:700}
+.display{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;line-height:.92;letter-spacing:-.01em}
+.red{color:var(--alert)}
+
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(10,11,14,.72);border-bottom:1px solid var(--rule)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-style:italic;font-size:24px;letter-spacing:.08em}
+.brand i{width:12px;height:12px;background:var(--action)}
+.nav-r{font-family:var(--mono);font-size:13px;color:var(--dim)}
+.nav-r a:hover{color:var(--text)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(72px,10vw,128px) 0 clamp(64px,8vw,104px);overflow:hidden}
+.brackets{position:absolute;inset:24px;pointer-events:none}
+.brackets i{position:absolute;width:44px;height:44px;border:2px solid var(--rail)}
+.brackets i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.brackets i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.brackets i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.brackets i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+.hero h1{font-size:clamp(52px,8vw,112px);margin:22px 0 28px}
+.lede{font-size:clamp(17px,1.6vw,21px);color:var(--dim);max-width:44ch}
+.lede strong{color:var(--text);font-weight:700}
+
+/* ---------- sections ---------- */
+section{padding:clamp(72px,9vw,120px) 0;border-top:1px solid var(--rule)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.head h2{font-size:clamp(40px,6vw,80px)}
+.head p{color:var(--dim);max-width:38ch;font-size:17px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.card{background:var(--ground);padding:38px 34px 42px;position:relative;transition:background .25s;display:flex;flex-direction:column}
+.card:hover{background:var(--panel)}
+.card::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--hue,var(--data));transition:width .45s ease}
+.card:hover::before{width:100%}
+.card .idx{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--hue,var(--data))}
+.card .idx::after{content:"_";opacity:0}
+.card:hover .idx::after{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:.25}}
+.card h3{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:30px;margin:18px 0 18px;letter-spacing:.01em}
+.card p{color:var(--dim);font-size:16px}
+.card strong{color:var(--text);font-weight:700}
+
+/* numbered steps, mono counters like the route codes */
+.steps{list-style:none;counter-reset:s;display:grid;gap:14px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;color:var(--dim);font-size:16px}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-weight:700;font-size:13px;color:var(--hue,var(--data));padding-top:2px}
+.ro{margin-top:auto;padding-top:26px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.1em}
+.ro b{color:var(--text)}
+
+.mail{display:block;margin-top:26px;padding:14px 20px;border-radius:4px;background:var(--action);color:var(--ground);
+  font-family:var(--mono);transition:background .2s;max-width:max-content}
+.mail:hover{background:#FFAA2B}
+.mail:active{transform:translateY(1px)}
+.mail small{display:block;font-size:11px;letter-spacing:.22em;opacity:.8}
+.mail span{display:block;font-weight:700;font-size:15px;overflow-wrap:anywhere}
+
+/* what goes, what stays */
+.list{list-style:none;border-top:1px solid var(--rule)}
+.list li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--rule);color:var(--text);font-size:16px}
+.list li span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--hue);white-space:nowrap;padding-top:3px}
+
+/* the last word */
+.final{text-align:center}
+.final h2{font-size:clamp(40px,6.4vw,92px);max-width:14ch;margin:0 auto}
+.final p{color:var(--dim);font-size:18px;margin:26px auto 0;max-width:46ch}
+
+footer{border-top:1px solid var(--rule);padding:34px 0 calc(34px + env(safe-area-inset-bottom))}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.12em}
+footer a:hover{color:var(--data)}
+
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:600px){
+  section{padding:64px 0}
+  .label{letter-spacing:.18em;font-size:11px}
+  .brackets{display:none}
+  .hero{padding:40px 0 56px}
+  .head{margin-bottom:32px}
+  .card{padding:28px 22px 30px}
+  .mail{max-width:100%}.mail span{font-size:13px}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:12px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Roam home"><i></i>ROAM</a>
+    <div class="nav-r"><a href="/">&larr; BACK TO ROAM</a></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <p class="label">Account · <b>Data deletion</b></p>
+    <h1 class="display">Delete your<br><span class="red">account</span></h1>
+    <p class="lede">You can delete your Roam account from inside the app at any time. <strong>No app any more?</strong> Email us and we will do it for you.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">Two ways out</h2>
+      <p>Either one ends with your account gone and your personal data deleted.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="idx">01 / IN THE APP</span>
+        <h3>From settings</h3>
+        <ol class="steps">
+          <li>Open Roam and go to <strong>Profile</strong>.</li>
+          <li>Tap the gear next to your name to open <strong>Settings</strong>.</li>
+          <li>Scroll to the bottom and tap <strong>Delete account</strong>, then tap it again to confirm.</li>
+        </ol>
+        <p class="ro">TAKES <b>EFFECT AT ONCE</b> · YOU ARE SIGNED OUT</p>
+      </div>
+      <div class="card" style="--hue:var(--action)">
+        <span class="idx">02 / WITHOUT THE APP</span>
+        <h3>By email</h3>
+        <p>Email us from the address you signed up with and say you want your account deleted. We will reply once it is done.</p>
+        <a class="mail" href="mailto:whowantswhat.studio@gmail.com?subject=Delete%20my%20Roam%20account">
+          <small>EMAIL</small><span>whowantswhat.studio@gmail.com</span>
+        </a>
+        <p class="ro">DONE <b>WITHIN 30 DAYS</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <h2 class="display">What happens<br>to your data</h2>
+      <p>Anything that is yours alone goes. Roads and reviews other riders rely on stay up, with your name taken off.</p>
+    </div>
+    <div class="grid">
+      <div class="card" style="--hue:var(--alert)">
+        <span class="idx">DELETED</span>
+        <h3 class="red">Gone for good</h3>
+        <ul class="list">
+          <li>Email, password, Google sign-in <span>LOGIN</span></li>
+          <li>Your name and profile picture <span>PROFILE</span></li>
+          <li>Every run, including its GPS track <span>RUNS</span></li>
+          <li>Routes you saved <span>SAVES</span></li>
+          <li>Crews you own, meets you host <span>CREWS</span></li>
+          <li>Your place in other crews and meets <span>MEMBERSHIP</span></li>
+        </ul>
+      </div>
+      <div class="card" style="--hue:var(--action)">
+        <span class="idx">KEPT, WITHOUT YOUR NAME</span>
+        <h3>Stays on the road</h3>
+        <ul class="list">
+          <li>Routes you posted <span>ROUTES</span></li>
+          <li>Reviews you wrote <span>REVIEWS</span></li>
+        </ul>
+        <p style="margin-top:22px">Other riders have driven these and rely on them. They show a Rider number instead of your name, and nothing links them back to you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="display">This <span class="red">cannot</span> be undone</h2>
+    <p>A deleted account cannot be brought back. You can sign up again with the same email, but you start from zero.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="/" style="font-size:18px"><i></i>ROAM</a>
+    <span>ROADS WORTH DRIVING · BUILT IN ISLAMABAD</span>
+    <span><a href="https://instagram.com/roam_index" rel="noopener">INSTAGRAM</a> · © 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
