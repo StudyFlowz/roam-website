@@ -73,7 +73,7 @@ Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22,
 
 Production totals (read-only aggregate query on the prod Postgres, 2026-10-16):
 
-- 150 routes across 36 regions in 5 countries (Pakistan, Canada, US, France, Finland).
+- 160 routes across 43 regions in 5 countries (Pakistan, Canada, US, France, Finland).
 - 5,213 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Nathiagali Galyat Run 6.5, Patriata Climb 6.4.
 - 163 drives logged, 15 users. Too small to quote as social proof.
 
