@@ -71,11 +71,11 @@ Road photos in `assets/roads/` are Wikimedia Commons images already attached to 
 
 Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22, every 2 h) for about 15 Pakistan routes. Murree Old Road: 64 min at 06:00, 108 min at 16:00 (+69%). The README's 139/209 Murree figures have no stored profile behind them.
 
-Production totals (read-only aggregate query on the prod Postgres, 2026-10-16):
+Production totals (read-only aggregate query on the prod Postgres, 2026-10-28):
 
-- 160 routes across 43 regions in 5 countries (Pakistan, Canada, US, France, Finland).
-- 5,213 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Nathiagali Galyat Run 6.5, Patriata Climb 6.4.
-- 163 drives logged, 15 users. Too small to quote as social proof.
+- 197 routes across 50 regions in 7 countries (Pakistan, Canada, US, France, Finland, Switzerland, India).
+- 6,216 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Nathiagali Galyat Run 6.5, Patriata Climb 6.4.
+- 188 drives logged, 30 users. Too small to quote as social proof.
 
 Refresh these before quoting them later. The README figures (21 routes, 5 regions, 729 km) are stale.
 
