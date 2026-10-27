@@ -73,8 +73,8 @@ Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22,
 
 Production totals (read-only aggregate query on the prod Postgres, 2026-10-28):
 
-- 197 routes across 50 regions in 7 countries (Pakistan, Canada, US, France, Finland, Switzerland, India).
-- 6,216 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Nathiagali Galyat Run 6.5, Patriata Climb 6.4.
+- 259 routes across 50 regions in 7 countries (Pakistan, Canada, US, France, Finland, Switzerland, India).
+- 9,556 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Schenley Park and Panther Hollow 7.1, Nathiagali Galyat Run 6.5.
 - 188 drives logged, 30 users. Too small to quote as social proof.
 
 Refresh these before quoting them later. The README figures (21 routes, 5 regions, 729 km) are stale.
