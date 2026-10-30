@@ -73,8 +73,8 @@ Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22,
 
 Production totals (read-only aggregate query on the prod Postgres, 2026-10-30):
 
-- 382 routes across 57 regions in 10 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile).
-- 12,413 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2, Schenley Park and Panther Hollow 7.1.
+- 397 routes across 58 regions in 10 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile).
+- 12,767 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2, Schenley Park and Panther Hollow 7.1.
 - 188 drives logged, 30 users. Too small to quote as social proof.
 
 Refresh these before quoting them later. The README figures (21 routes, 5 regions, 729 km) are stale.
