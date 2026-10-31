@@ -71,10 +71,10 @@ Road photos in `assets/roads/` are Wikimedia Commons images already attached to 
 
 Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22, every 2 h) for about 15 Pakistan routes. Murree Old Road: 64 min at 06:00, 108 min at 16:00 (+69%). The README's 139/209 Murree figures have no stored profile behind them.
 
-Production totals (read-only aggregate query on the prod Postgres, 2026-10-30):
+Production totals (read-only aggregate query on the prod Postgres, 2026-10-31):
 
-- 397 routes across 58 regions in 10 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile).
-- 12,767 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2, Schenley Park and Panther Hollow 7.1.
+- 414 routes across 59 regions in 11 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile, Colombia).
+- 13,174 km of road; twist grades 0.9 to 7.8. Twistiest: Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2, Schenley Park and Panther Hollow 7.1.
 - 188 drives logged, 30 users. Too small to quote as social proof.
 
 Refresh these before quoting them later. The README figures (21 routes, 5 regions, 729 km) are stale.
