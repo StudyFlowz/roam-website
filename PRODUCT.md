@@ -73,8 +73,8 @@ Departure profiles: `routes.traffic_profile` holds real samples (hours 04 to 22,
 
 Production totals (read-only aggregate query on the prod Postgres, 2026-11-04):
 
-- 471 routes across 63 regions in 12 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile, Colombia, Spain).
-- 13,919 km of road; twist grades 0.9 to 8.4. Twistiest: Up to Xàtiva castle 8.4, Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2.
+- 485 routes across 64 regions in 13 countries (Pakistan, Canada, US, France, Finland, Switzerland, India, Australia, Netherlands, Chile, Colombia, Spain, UK).
+- 14,075 km of road; twist grades 0.9 to 8.4. Twistiest: Up to Xàtiva castle 8.4, Pir Sohawa Hillclimb 7.8, Valparaíso's hills 7.2.
 - 188 drives logged, 30 users. Too small to quote as social proof.
 
 Refresh these before quoting them later. The README figures (21 routes, 5 regions, 729 km) are stale.
