@@ -29,7 +29,7 @@ Roam is a map-first app where drivers and riders post the roads worth driving, f
 
 Navigation apps answer "how do I get there?" Roam answers "where should I go?" Nothing in Roam optimises for arrival. A route is a road someone chose to drive, described by the person who drove it.
 
-Scope is global: any city. Pakistan (Islamabad) is where it started and where its measured claims come from.
+Scope is global: any city. The site presents Roam as a global app. Pakistan (Islamabad) is where it started, and it appears only as example roads and the footer origin line. The departure-time data comes from Pakistan routes.
 
 ## Operating Context
 
@@ -41,6 +41,9 @@ App capabilities the site describes:
 - **Drive it:** wall-clock timer that survives the phone locking and pauses when stopped.
 - **Keep what you did:** ride log against the route's estimate, personal bests, riding-time chart.
 - **Post your own:** search or drop pins; the line snaps to real roads; add stops, photos, notes.
+- **Crews and meets:** join or start a crew; see meets near you.
+- **Tickets:** a finished run gives a shareable timing ticket; every meet has a ticket; the QR opens Roam on that route.
+- **Get to the start:** follow the road from your location to the route start.
 
 ## Capabilities and Constraints
 
@@ -86,4 +89,4 @@ No testimonials, press, ratings, or download counts exist yet.
 1. The drive is the point. Never sell speed of arrival.
 2. Measured, not assumed. Every claim is a number someone measured.
 3. Local knowledge, written down by the person who drove it.
-4. Works where mainstream maps quietly don't.
+4. Works where mainstream maps fall short: no reliance on live traffic or category search.
