@@ -183,6 +183,22 @@ section{padding:clamp(80px,11vw,140px) 0;position:relative}
 .twist .copy p{color:var(--dim);font-size:19px;max-width:36ch}
 .twist .copy p strong{color:var(--text)}
 .meter{margin-top:40px;max-width:520px}
+
+/* ---------- verified ---------- */
+.verified .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.verified h2{font-size:clamp(56px,8.5vw,120px);margin:18px 0 26px}
+.verified .copy p{color:var(--dim);font-size:19px;max-width:38ch}
+.verified .copy p strong{color:var(--text)}
+.verified .store.play{margin-top:36px;display:inline-flex}
+.vf{border:1px solid var(--rule);background:var(--panel);padding:30px;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.vf-badge{display:inline-flex;align-items:center;gap:10px;color:var(--data);border:1px solid var(--data);padding:8px 14px;margin-bottom:26px}
+.vf-badge svg{width:18px;height:18px}
+.vf h3{font-size:12px;letter-spacing:.32em;color:var(--dim);font-weight:400;margin:22px 0 12px}
+.vf ul{list-style:none;display:grid;gap:10px}
+.vf li{display:flex;gap:12px;color:var(--text)}
+.vf li::before{content:"›";color:var(--action)}
+.vf small{display:block;margin-top:22px;color:var(--faint);letter-spacing:.08em;line-height:1.6}
+@media (max-width:900px){.verified .wrap{grid-template-columns:1fr;gap:40px}}
 .segs{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
 .segs i{height:30px;background:var(--raised);transform-origin:bottom;transition:background .3s}
 .meter.on .segs i.lit{background:var(--c);animation:seg .4s backwards}
@@ -367,6 +383,7 @@ footer a:hover{color:var(--data)}
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Roam home"><i></i>ROAM</a>
     <div class="nav-r">
+      <a href="#verified" style="color:var(--data)">GET VERIFIED</a>
       <a class="nav-x" href="/privacy">PRIVACY</a>
       <a class="nav-x" href="mailto:whowantswhat.studio@gmail.com?subject=Roam">CONTACT</a>
       <a href="https://instagram.com/roam_index" rel="noopener">@roam_index</a>
@@ -382,7 +399,8 @@ footer a:hover{color:var(--data)}
     <li><a href="#together" style="--c:#C77DFF"><span>TOGETHER</span><b>03</b></a></li>
     <li><a href="#twist" style="--c:#FF5C7A"><span>TWIST GRADE</span><b>04</b></a></li>
     <li><a href="#when" style="--c:#8A8CFF"><span>WHEN TO LEAVE</span><b>05</b></a></li>
-    <li><a href="#get" style="--c:#00E5FF"><span>GET ROAM</span><b>06</b></a></li>
+    <li><a href="#verified" style="--c:#3DD6A0"><span>GET VERIFIED</span><b>06</b></a></li>
+    <li><a href="#get" style="--c:#00E5FF"><span>GET ROAM</span><b>07</b></a></li>
   </ol>
   <button class="log-btn" type="button" aria-expanded="false" aria-controls="log-list" style="--c:#FF9900"><b>00</b><span>START</span><i aria-hidden="true">▴</i></button>
 </aside>
@@ -759,6 +777,31 @@ footer a:hover{color:var(--data)}
   </div>
 </div>
 
+<section class="verified" id="verified">
+  <div class="wrap">
+    <div class="copy rv">
+      <p class="label">For drivers, creators and crews</p>
+      <h2 class="display">Get <span class="cyan">verified.</span></h2>
+      <p><strong>A verified badge tells drivers it is really you.</strong> Enthusiast, creator, crew or automotive business: apply once, we review it, and your profile gets the mark.</p>
+      <p style="margin-top:14px">Verified accounts can also <strong>publish public meets</strong> on Roam.</p>
+      <a class="store play" href="https://docs.google.com/forms/d/e/1FAIpQLSdK3oHxuvHzGPChAhmVJs0oovUCITZFOR-RtsOpBh3mV5pBEA/viewform" target="_blank" rel="noopener">
+        <div><small>Five quick fields</small><span>Apply for verification ↗</span></div>
+      </a>
+    </div>
+    <div class="vf rv">
+      <span class="vf-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>VERIFIED</span>
+      <h3>WHAT YOU'LL NEED</h3>
+      <ul>
+        <li>Your Roam username</li>
+        <li>Email</li>
+        <li>Phone / WhatsApp</li>
+        <li>Instagram or Facebook link</li>
+      </ul>
+      <small>Every application is reviewed before approval.</small>
+    </div>
+  </div>
+</section>
+
 <section class="final" id="get">
   <div class="wrap rv">
     <img src="/assets/mark.png" alt="Roam icon">
@@ -845,7 +888,7 @@ const spy=new IntersectionObserver(es=>es.forEach(e=>{
 }),{rootMargin:'-45% 0px -50% 0px'});
 logLinks.forEach(a=>{const t=document.querySelector(a.hash);if(t)spy.observe(t)});
 // Jump past each section's top padding so its content sits just under the nav;
-// 06 centres the closing block (mark, line, store buttons) instead.
+// 07 centres the closing block (mark, line, store buttons) instead.
 const NAV=64;
 logLinks.forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
