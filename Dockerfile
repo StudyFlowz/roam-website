@@ -3,9 +3,9 @@
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
-COPY index.html delete-account.html privacy.html /usr/share/nginx/html/
+COPY index.html delete-account.html privacy.html sitemap.xml robots.txt /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
-# assetlinks.json: lets the Android app open ticket links (roam-index.vercel.app/route/…)
+# assetlinks.json: lets the Android app open ticket links (discoverroam.app/route/…)
 COPY .well-known /usr/share/nginx/html/.well-known
 
 # Cloud Run injects PORT; 8080 keeps local runs working.

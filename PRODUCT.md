@@ -47,7 +47,7 @@ App capabilities the site describes:
 
 ## Capabilities and Constraints
 
-- Android: launched. Google Play URL **pending** (expected within a week of 2026-10-16); the CTA is a placeholder until then.
+- Android: launched. Google Play: https://play.google.com/store/apps/details?id=com.roamindex.app
 - iOS: **coming soon**. No App Store link.
 - No waitlist: the app is launched.
 - The app is dark-only; the web app build exists but has no public URL yet.
