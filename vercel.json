@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/((?!\\.well-known/).*)",
+      "has": [{ "type": "host", "value": "roam-index.vercel.app" }],
+      "destination": "https://discoverroam.app/$1",
+      "permanent": true
+    }
+  ]
+}
