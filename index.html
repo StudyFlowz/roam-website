@@ -119,6 +119,13 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .store.play:active{transform:translateY(1px)}
 .store.ios{border:1px dashed var(--rail);color:var(--dim);cursor:not-allowed;position:relative}
 .store.ios small{opacity:1}
+.notify{flex:1 1 100%;display:flex;gap:10px;max-width:434px}
+.notify input{flex:1;min-width:0;padding:14px 16px;border:1px dashed var(--rail);border-radius:4px;background:transparent;color:var(--text);font:15px var(--mono)}
+.notify input:focus{outline:none;border-style:solid;border-color:var(--data)}
+.notify button{padding:0 20px;border:1px solid var(--data);border-radius:4px;background:transparent;color:var(--data);font:700 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.notify button:hover{background:var(--data);color:var(--ground)}
+.notify-ok{flex:1 1 100%;font:13px var(--mono);letter-spacing:.06em;color:var(--data)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .store.ios em{position:absolute;top:-10px;right:10px;background:var(--ground);border:1px solid var(--data);color:var(--data);
   font-style:normal;font-size:11px;letter-spacing:.16em;padding:1px 7px}
 
@@ -421,6 +428,11 @@ footer a:hover{color:var(--data)}
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5Z"/></svg>
           <div><small>Coming soon to</small><span>App Store</span></div>
         </div>
+        <form class="notify" action="https://docs.google.com/forms/d/e/1FAIpQLScT1HYp91a51xcqwme_RdHPmj325JWgLDAkiNDbkshPcmhn1w/formResponse" method="POST" target="notify-sink" onsubmit="notifySent(this)">
+          <label class="sr" for="notify-1">Email me when Roam is on the App Store</label>
+          <input id="notify-1" type="email" name="entry.1045781291" required placeholder="Your email for iOS" autocomplete="email">
+          <button>Notify me</button>
+        </form>
       </div>
     </div>
 
@@ -817,9 +829,19 @@ footer a:hover{color:var(--data)}
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5Z"/></svg>
         <div><small>Coming soon to</small><span>App Store</span></div>
       </div>
+      <form class="notify" action="https://docs.google.com/forms/d/e/1FAIpQLScT1HYp91a51xcqwme_RdHPmj325JWgLDAkiNDbkshPcmhn1w/formResponse" method="POST" target="notify-sink" onsubmit="notifySent(this)">
+        <label class="sr" for="notify-2">Email me when Roam is on the App Store</label>
+        <input id="notify-2" type="email" name="entry.1045781291" required placeholder="Your email for iOS" autocomplete="email">
+        <button>Notify me</button>
+      </form>
     </div>
   </div>
 </section>
+<!-- ponytail: Google Form as the waitlist backend; the hidden iframe swallows its response page so we stay on the site -->
+<iframe name="notify-sink" title="" hidden></iframe>
+<script>
+function notifySent(f){setTimeout(function(){var p=document.createElement('p');p.className='notify-ok';p.setAttribute('role','status');p.textContent="You're on the list. One email, the day Roam lands on the App Store.";f.replaceWith(p)},0)}
+</script>
 
 <footer>
   <div class="wrap">
